@@ -1,5 +1,5 @@
 {
-	"applicationTitle": "applicationTitle",
+	"applicationTitle": "THREDU course",
 	"Course.list": "Course.list",
 	"new": "new",
 	"Course.name": "Course.name",
