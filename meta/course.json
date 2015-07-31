@@ -1,0 +1,8 @@
+{
+  "name":"course",
+  "properties":[
+    {"name":"name","type":"String"},
+    {"desc":"address","type":"String"}
+  ],
+  "pagination":true
+}

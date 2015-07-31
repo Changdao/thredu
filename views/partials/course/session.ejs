@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="col-lg-1">
+    </div>
+    <div class="col-lg-6">
+        <form role="form" novalidate>
+            <div class="form-group"><label><%= __("session.name") %></label>
+            <input type="text" class="form-control" ng-model="session.name">
+            </div>
+            <div class="form-group"><label><%= __("session.date") %></label>
+            <input type="text" class="form-control" ng-model="session.date">
+            </div>
+
+            <div class="form-group"><label><%= __("session.address") %></label>
+            <input type="text" class="form-control" ng-model="session.address">
+            </div>
+
+            <button ng-click="save()" class="btn btn-default"><%= __("save") %></button>
+            <button type="reset" class="btn btn-default"><%= __("reset") %></button>
+        </form>
+    </div>
+
+    <!-- /.col-lg-6 (nested) -->
+</div>
+<div class="row">
+    <table class="table table-stripped">
+        <thead>
+            <th>序号</th>
+            <th>标题</th>
+            <th></th>
+        </thead>
+        <tbody>
+            <tr ng-class="question.id==session.currentQuestionId?'success':'' " ng-repeat="question in questions">
+                <td>{{question.sn}}</td>
+                <td>{{question.desc}}</td>
+                <td><button ng-click="setCurrent(question)">设为当前</button>
+                <a href="/course#/session/{{session.id}}/question/{{question.id}}/answer">查看回答</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<script type="text/ng-template" id="saveSuccess.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Save Course success!</h3>
+    </div>
+    <div class="modal-body">
+        <span>The course has been saved!</span>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="ok()">Close</button>
+    </div>
+</script>

@@ -1,0 +1,12 @@
+{
+  "name":"session",
+  "properties":[
+    {"name":"name","type":"String"},
+    {"address":"address","type":"String"},
+    {"lat":"lat","type":"Float"},
+    {"lng":"lng","type":"Float"},
+    {"date":"date","type":"Date"},
+    {"desc":"desc","type":"String"}
+  ],
+  "pagination":true
+}

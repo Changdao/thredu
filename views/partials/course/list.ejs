@@ -1,0 +1,23 @@
+<div class="panel-heading">
+    <%= __("Course.list")%>
+    <a href="#/new" class="panel-button"><%= __("new") %></a>
+</div>
+
+<div class="panel-body">
+    <div class="dataTable_wrapper">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr><th><%= __("Course.name")%></th>
+<th><%= __("Course.desc")%></th>
+<th><%= __("Course.hours") %></th>
+</tr>
+            </thead>
+            <tbody>
+            <tr  ng-repeat="course in courses"><td><a href="#/{{course.id}}">{{course.name}}</a></td>
+<td>{{course.desc}}</td>
+<td>{{course.hours}}</td>
+</tr>
+            </tbody>
+        </table>
+    </div>
+</div>

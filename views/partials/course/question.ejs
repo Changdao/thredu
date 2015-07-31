@@ -1,0 +1,33 @@
+<div class="row">
+    <form>
+        <div class="input-group">
+            <label>题目</label>
+            <textarea calss="form-control" ng-model="nq.desc"></textarea>
+        </div>
+        <div class="input-group" ng-show="question.o1 && question.o1! == ''">
+            <label>
+            <input type="radio" calss="form-control" ng-model="1">{{question.o1}}</label>
+        </div>
+        <div class="input-group" ng-show="question.o2 && question.o2! == ''">
+            <label>
+            <input type="radio" calss="form-control" ng-model="1">{{question.o2}}</label>
+        </div>
+        <div class="input-group" ng-show="question.o3 && question.o3! == ''">
+            <label>
+            <input type="radio" calss="form-control" ng-model="1">{{question.o1}}</label>
+        </div>
+        <div class="input-group" ng-show="question.o4 && question.o4! == ''">
+            <label>
+            <input type="radio" calss="form-control" ng-model="1">{{question.o4}}</label>
+        </div>
+        <div class="input-group" ng-show="question.o5 && question.o5! == ''">
+            <label>
+            <input type="radio" calss="form-control" ng-model="1">{{question.o5}}</label>
+        </div>
+        <div class="input-group" ng-show="question.o6 && question.o6! == ''">
+            <label>
+            <input type="radio" calss="form-control" ng-model="1">{{question.o6}}</label>
+        </div>
+        <button class="btn btn-primary" ng-click="saveQuestion()">保存</button>
+    </form>
+</div>

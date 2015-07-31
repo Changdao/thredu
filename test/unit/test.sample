@@ -1,0 +1,37 @@
+'use strict';
+
+describe('UtimesSchoolAreaDetailCtrl', function() {
+    var ctrl;
+    var scope;
+    beforeEach(module('utimesApp'));
+    beforeEach(module('utimesSchoolControllers'));
+
+
+    describe("UtimesSchoolAreaDetailCtrl",function(){
+        var scope, ctrl, $httpBackend;
+
+        beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
+            console.log('..................................................')
+            $httpBackend = _$httpBackend_;
+            $httpBackend.expectGET('/api/schools/mock_school_id_001').
+                respond({schoolName: 'BIT',areas:[],tuitions:[]});
+
+            //$httpBackend.expectGET('/partials/auth-role-list').respond("");
+            $httpBackend.expectGET('/partials/dashboard').respond('');
+            scope = $rootScope.$new();
+            ctrl = $controller('UtimesSchoolAreaDetailCtrl', {$scope: scope,$routeParams:{schoolId:'mock_school_id_001'}});
+        }));
+
+
+        it("school should have instance", function() {
+            console.log('********************');
+            //expect(ctrl).not.toBe(undefined);
+            //expect(scope.school).toBe(undefined);
+            $httpBackend.flush();
+            expect(scope.schoolName).toBe("BIT");
+
+        });
+    });
+
+
+});
