@@ -36,3 +36,21 @@ threduCourseService.factory('Question',['$resource',function($resource){
         };*/
         return Question;
 }]);
+
+
+threduCourseService.factory('CourseSession',['$resource',function($resource){
+
+    var CourseSession = $resource('/api/course/:cid/session',{},{
+            query:{method:'GET',params:{cid:''},isArray:true}
+        });
+
+        /*var protoGet = Course.get;
+        Course.get = function(params){
+            var result =  protoGet(params);
+            result.$promise.then(function(){
+                
+            });
+            return result;
+        };*/
+        return CourseSession;
+}]);

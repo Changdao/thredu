@@ -1,3 +1,27 @@
+<style type="text/css">
+    .toast {
+      position:absolute;
+      bottom:100px;
+      padding:20px;
+      left:50px;
+      right:50px;
+      color:white;
+      //border:1px solid black;
+      background:gray;
+      opacity:0.8;
+    }
+
+    .toast {
+        -webkit-transition:all linear 1s;
+        transition:all linear 1s;
+        font-color:red;
+    }
+
+    .toast.ng-hide {
+        opacity:0;
+    }
+</style>
+
 <div class="row">
     <div class="col-md-4 ">
         <div class="panel panel-success">
@@ -7,6 +31,10 @@
                 </div>
                 <form>
                 <div class="panel-body">
+                    <div>
+                        <label>课程封面</label>
+                        <img ng-src="{{course.image}}" style="border-style:solid;border-width:1px;border-color:#000;">
+                    </div>
                     <div class="form-group">
                         <label><%= __("Course.name") %></label>
                         <input type="text" class="form-control" ng-model="course.name">
@@ -26,6 +54,7 @@
                 </div>
                 </form>
         </div>
+        
     </div>
     <div class="col-md-8">
         <div class="panel panel-default">
@@ -42,85 +71,177 @@
                 <tbody>
                     <tr ng-repeat="question in questions">
                         <td>{{question.sn}}</td>
-                        <td>{{question.desc}}</td>
-                        <td><button ng-click="deleteQuestion(question)">删除</button></td>
+                        <td ng-click="editQuestion(question)" style="cursor:pointer;">{{question.desc}}</td>
+                        <td>
+                        <button ng-click="deleteQuestion(question)">删除</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
             </div>
             
-            <div class="panel-footer">
-                <form>
-                    <div class="form-group">
-                        <label>序号</label>
-                        <textarea class="form-control" ng-model="nq.sn"></textarea>
+            <div class="panel-footer"">
+                <div class="row">
+                    <button  class="pull-right"   style="margin:4px;" ng-click="newQuestion()" title="展开编辑">{{questionEditMark}}</button>
+                </div>
+                <div class="row"  ng-show="questionEditing" style="margin:4px;">
+                    <div class="toast" ng-show="isToasting" style="clear:both;z-index:1000;">
+                        保存成功!
                     </div>
-                    <div class="form-group">
-                        <label>题目描述</label>
-                        <textarea class="form-control" ng-model="nq.desc"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>选项1</label>
-                        <input class="form-control" ng-model="nq.o1">
-                    </div>
-                    <div class="form-group">
-                        <label>选项2</label>
-                        <input class="form-control" ng-model="nq.o2">
-                    </div>
-                    <div class="form-group">
-                        <label>选项3</label>
-                        <input class="form-control" ng-model="nq.o3">
-                    </div>
-                    <div class="form-group">
-                        <label>选项4</label>
-                        <input class="form-control" ng-model="nq.o4">
-                    </div>
-                    <div class="form-group">
-                        <label>选项5</label>
-                        <input class="form-control" ng-model="nq.o5">
-                    </div>
-                    <div class="form-group">
-                        <label>选项6</label>
-                        <input class="form-control" ng-model="nq.o6">
-                    </div>
-                    <button class="btn btn-primary" ng-click="saveQuestion()">保存</button>
-                </form>
+                    <form>
+                        <div class="form-group">
+                            <label>序号</label>
+                            <input class="form-control" ng-model="nq.sn">
+                        </div>
+                        <div class="form-group">
+                            <label>题目描述</label>
+                            <textarea class="form-control" ng-model="nq.desc"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>选项1</label>
+                            <input class="form-control" ng-model="nq.option1">
+                        </div>
+                        <div class="form-group">
+                            <label>选项2</label>
+                            <input class="form-control" ng-model="nq.option2">
+                        </div>
+                        <div class="form-group">
+                            <label>选项3</label>
+                            <input class="form-control" ng-model="nq.option3">
+                        </div>
+                        <div class="form-group">
+                            <label>选项4</label>
+                            <input class="form-control" ng-model="nq.option4">
+                        </div>
+                        <div class="form-group">
+                            <label>选项5</label>
+                            <input class="form-control" ng-model="nq.option5">
+                        </div>
+                        <div class="form-group">
+                            <label>选项6</label>
+                            <input class="form-control" ng-model="nq.option6">
+                        </div>
+                        <button class="btn btn-primary" ng-click="saveQuestion()">Save Question</button>
+                    </form>
+                </div>
             </div>
             
         </div>
     </div>
-</div>
 
+</div>
 <div class="row">
-    <div class="col-md-12">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h5>课程开课记录</h5>
-        </div>
-        <div class="panel-body">
+    <div class="col-md-4">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                当前课程
+            </div>
+            <div class="panel-body">   
+                <div ng-show="!currentSession">
+                    <span>无<span>
+                    <div class="form-group">
+                    <label>地址:</label>
+                    <input class="form-control" type="text" placeholder="当前位置" ng-model="sessionLocation" ng-keypress="onSessionLocationKeyPress($event)">
+                    </div>
+                    <div class="form-group">
+                        <label>城市:</label>
+                        <input class="form-control" type="text" ng-model="city" disabled></input>
+                    </div>
+                    <br>
+                    <style type="text/css">
+                        #mapCurrent {
+                            height:300px;
+                        }
+                    </style>
+                    <div id="mapCurrent">
 
-            <table class="table table-stripped">
-                <thead>
-                    <th>名称</th>
-                    <th>日期</th>
-                    <th>地点</th>
-                    <th></th>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="session in sessions">
-                        <td><a href="/course#/session/{{session.id}}">{{session.name}}</a></td>
-                        <td>{{session.date}}</td>
-                        <td>{{session.address}}</td>
-                        <td></td>
+                    </div>
+                </div>
+                <table class="table table-responsive table-bordered" ng-show="currentSession">
+                    <tr>
+                        <td>
+                        <B>开始时间：</B>
+                        </td>
+                        <td ng-bind="currentSession.startAt">
+                            
+                        </td>
                     </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="panel-footer">
+                    <tr>
+                        <td>
+                        <B>地点:</B>
+                        </td>
+                        <td ng-bind="currentSession.address">   
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" ng-bind-html="renderHtml(currentSession.qr)">
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                        <div class="form-group">
+                        <label>当前问题</label>
+                        <select class="form-control" ng-options="question.desc for question in questions" ng-model="currentSession.currentQuestion">
+                        </div>
+                        </td>
+                    </tr>
+                </table>
+                <style type="text/css">
+                    .changeToast {
+                        position:absolute;bottom:200px;
+                        left:50px;right:50px; 
+                        text-align:center;
+                        background:gray;
+                        opacity:0.8;
+                        transition:all linear 1s;
+                    }
+
+                    .changeToast.ng-hide {
+                        opacity:0;
+                    }
+                </style>
+                <div class="changeToast" ng-show="isChangeToasting">更改成功</div>
+            </div>
+            <div class="panel-footer">
+                <button class="btn btn-lg btn-primary" ng-click="presentSession()" ng-show="!currentSession">开讲</button>    
+                <button class="btn btn-lg btn-primary" ng-click="closeSession()" ng-show="currentSession">结束</button>    
+            </div>
         </div>
     </div>
+
+    <div class="col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h5>授课计划</h5>
+            </div>
+            <div class="panel-body">
+
+                <table class="table table-stripped table-responsive">
+                    <thead>
+                        
+                        <th>日期</th>
+                        <th>地点</th>
+                        <th>说明</th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="session in sessions" ng-class="session.isCurrent?'success':''">
+                            <td><a href="/course#/session/{{session.id}}">{{session.startAt}}</a></td>
+                            <td>{{session.address}}</td>
+                            <td>{{session.desc}}</a></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="panel-footer">
+            </div>
+        </div>
     </div>
 </div>
+
+
 
 
 <script type="text/ng-template" id="saveSuccess.html">

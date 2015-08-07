@@ -1,0 +1,59 @@
+<div class="container" style="padding-top:32px">
+     <div class="row">
+
+          <div class="col-md-4">
+               <div><h1>当前位置</h1>
+               </div>
+               <style type="text/css">
+                    #mapCurrent {
+                         height:300px;
+                         margin-top:16px;
+                         border-style: solid;
+                         border-width: 1px;
+                         border-color:#000;
+
+                    }
+               </style>
+               <div id="mapCurrent">
+               </div>
+               <span ng-show="locating" ng-bind="aniLocS"></span>
+          </div>
+          <div class="col-md-8" style="margin-top:16px;">
+               <h1>附近课程</h1>
+               <div class="row isotope_portfolio_container" ng-repeat="session in aroundSessions">
+                    <div class="cat_travel">
+                         <div ng-show="!session.isCurrent" style="text-align:center;"><h5>已经结束</h5></div>
+
+                         <div class="portfolio_item" ng-show="session.isCurrent"> <a href="#/session/{{session.id}}" data-path-hover="M 180,190 0,158 0,0 180,0 z">
+                              <figure style="background-image:url(images/wild.png)">
+                                   <img ng-src="{{session.course.image}}">
+                                   <figcaption>
+                                        <p>{{session.course.desc}}</p>
+                                        <div class="view_button">进入</div>
+                                   </figcaption>
+                              </figure>
+                              </a>
+                              <div class="portfolio_description">
+                                   <h3><a href="portfolio_item.html">{{session.course.name}}</a></h3>
+                                   <p>{{session.startAt}}</p>
+                              </div>
+                         </div>
+                         <div class="portfolio_item" ng-show="!session.isCurrent"> 
+                              <figure style="background-image:url(images/wild.png)">
+                                   <img ng-src="{{session.course.image}}">
+                                   <figcaption>
+                                        <p>{{session.course.desc}}</p>
+                                        <div class="view_button">进入</div>
+                                   </figcaption>
+                              </figure>
+                              
+                              <div class="portfolio_description">
+                                   <h3><a href="portfolio_item.html">{{session.course.name}}</a></h3>
+                                   <p>{{session.startAt}}</p>
+                              </div>
+                         </div>
+                    </div>
+               </div>
+          </div>
+     </div>
+</div>

@@ -1,0 +1,70 @@
+<style type="text/css">
+  label {
+    font-size:20px;
+  }
+</style>
+<div class="container" style="padding-top:32px">
+     <div class="row">
+
+          <div class="col-sm-8">
+                <div><h2>当前问题</h2>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-2 col-xs-1">
+                        <H2 ng-bind="question.sn"></H2>
+                    </div>
+                    <div class="col-md-8 col-xs-11">
+                        <p><H3 ng-bind="question.desc">
+                        </H3></p>
+                        <form>
+                        <div class="radio" ng-show="question.option1">
+                        <label><input ng-model='answer' type="radio" name="answer" checked value="1" >
+                        {{question.option1}}</label>
+                        </div>
+                        <div class="radio" ng-show="question.option2">
+                        <label><input ng-model='answer' type="radio" name="answer" value="2">
+                        {{question.option2}}</label>
+                        </div>
+                        <div class="radio" ng-show="question.option3" >
+                        <label><input ng-model='answer' type="radio" name="answer" value="3">
+                        {{question.option3}}</label>
+                        </div>
+                        <div class="radio" ng-show="question.option4">
+                        <label><input ng-model='answer' type="radio" name="answer" value="4">
+                        {{question.option4}}</label>
+                        </div>
+                        <div class="radio" ng-show="question.option5">
+                        <label><input ng-model='answer' type="radio" name="answer" value="5">
+                        {{question.option5}}</label>
+                        </div>
+                        <div class="radio" ng-show="question.option6">
+                        <label><input ng-model='answer' type="radio" name="answer" value="6">
+                        {{question.option6}}</label>
+                        </div>
+                        <button class="btn btn-primary" ng-click="doAnswer()">提交答案</button>
+                        </form>
+                    </div>
+                </div>
+                
+          </div>
+
+          <div class="col-sm-4">
+               <h2>课程信息</h2>
+               <div class="row isotope_portfolio_container">
+                    <div class="cat_travel">
+                         <div class="portfolio_item"> 
+                              <figure style="background-image:url(images/wild.png)">
+                                   <img ng-src="{{session.course.image}}">
+                              </figure>
+                              
+                              <div class="portfolio_description">
+                                   <h3><a href="portfolio_item.html">{{session.course.name}}</a></h3>
+                                   <p>{{session.startAt}}</p>
+                              </div>
+                         </div>
+                    </div>
+               </div>
+          </div>
+     </div>
+</div>

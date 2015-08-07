@@ -14,5 +14,9 @@
 	"save": "save",
 	"reset": "reset",
 	"Course.desc": "Course.desc",
-	"Course.hours": "Course.hours"
+	"Course.hours": "Course.hours",
+	"deleteAll": "deleteAll",
+	"session.name": "session.name",
+	"session.date": "session.date",
+	"session.address": "session.address"
 }
