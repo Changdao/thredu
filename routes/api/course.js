@@ -192,7 +192,7 @@ exports.getQuestions = function(req,res){
         res.send(objs);
     }).catch(function(error){
         res.status(401);
-        res.send(error);
+        res.send(error);   
     })
 };
 

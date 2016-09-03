@@ -23,13 +23,28 @@
 <header>
      <div class="container">
           <div class="navbar navbar-default" role="navigation">
-               <div class="navbar-header"><a class="navbar-brand" href="/#/"> <img src="images/aihanglogo.png" alt="optional logo" height="90" width="90"> <span class="logo_title">爱航<strong>教育云</strong></span> <span class="logo_subtitle">传统教育｜现代交流</span> </a><a class="btn btn-navbar btn-default navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="nb_left pull-left"> <span class="fa fa-reorder"></span></span> <span class="nb_right pull-right">菜单</span> </a></div>
+               <div class="navbar-header">
+                    <a class="navbar-brand" href="/#/"> 
+                         <img src="images/aihanglogo.png" alt="optional logo" height="90" width="90"> 
+                         <span class="logo_title">Thredu<strong>Cloud</strong></span> 
+                         <span class="logo_subtitle">传统教育｜现代交流</span> </a>
+                    <a class="btn btn-navbar btn-default navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                         <span class="nb_left pull-left"> 
+                              <span class="fa fa-reorder"></span>
+                         </span> 
+                         <span class="nb_right pull-right">菜单</span> 
+                    </a>
+               </div>
                <div class="collapse navbar-collapse">
                     <% include partials/index/navigation %>
                </div>
           </div>
-
-          <div id="sign"><a href="#/signin"><i class="fa fa-user"></i><span>注册/登录</span></a></div>
+          <% if(session.user){%>
+               <div id="sign"><a href="/course#/"><i class="fa fa-user"></i><span>我的Thredu</span></a></div>
+          <%}else{%>
+               <div id="sign"><a href="#/signin"><i class="fa fa-user"></i><span>注册/登录</span></a></div>
+          <%}%>
+          
      </div>
 </header>
 <div class="main">

@@ -113,7 +113,7 @@ threduCourseControllers.controller('threduCourseDetailCtrl',function($scope,$rou
         $http.post('/api/course/'+$scope.course.id+'/question',$scope.nq).then(function(data){
             if(isNew)
             {
-                $scope.questions.unshift(data);
+                $scope.questions.unshift(data.data);
                 $scope.nq={};    
             }
             else

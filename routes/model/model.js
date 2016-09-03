@@ -7,7 +7,10 @@ var sequelize = new Sequelize('postgres://thredu:thredu@localhost:5432/thredu');
 var User = sequelize.define('user',{
     firstname:{type:Sequelize.STRING,field:'firstname'},
     lastname:{type:Sequelize.STRING,field:'lastname'},
+    nickname:{type:Sequelize.STRING,field:'nickname'},
     password:{type:Sequelize.STRING,field:'password'},
+    email:{type:Sequelize.STRING,field:'email'},
+    phone:{type:Sequelize.STRING,field:'phone'},
     lastlat:{type:Sequelize.FLOAT,field:'lastlat'},
     lastlng:{type:Sequelize.FLOAT,field:'lastlng'}
 });
@@ -22,6 +25,7 @@ var Course =  sequelize.define('course',{
       },
             {freezeTableName: true }); 
 User.hasMany(Course,{as:'Courses'});
+
 
 
 
@@ -50,6 +54,18 @@ var Session = sequelize.define('coursesession',{
     qr:{type:Sequelize.TEXT,field:'qr'}
 });
 
+Session.answer = function(sessionId,questionId){
+    return Session.findOne({where:{id:sessionId}}).then(function(obj){
+        console.log(obj);
+        var answer={};
+        answer.sessionId=Number(sessionId);
+        answer.questionId = Number(questionId);
+        answer.answer = req.body['answer'];
+        return QuestionAnswer.create(answer);
+    });
+}
+
+
 var QuestionAnswer = sequelize.define('answer',{
     questionId:{type:Sequelize.INTEGER,field:'questionId'},
     sessionId:{type:Sequelize.INTEGER,field:'sessionId'},
@@ -60,13 +76,11 @@ Course.hasMany(Question,{as:"Questions"});
 Course.hasMany(Session,{as:'Sessions'});
 
 Question.belongsTo(Course);
-
 Session.belongsTo(Course);
 
 var force = false;
 
-User.sync({force:force})
-.then(function(obj){
+User.sync({force:true}).then(function(obj){
     return Course.sync({force:force});
 }).then(function(){
     return Session.sync({force:force});
@@ -75,13 +89,16 @@ User.sync({force:force})
 }).then(function(){
     return QuestionAnswer.sync({force:force});
 });
-
+/**
+    打开课程
+*/
 Course.openSession = function(courseId,session){
     
     var course = null;
     return sequelize.transaction(function(tr){
         var sessObj = null;
-        return Course.findById(courseId).then(function(obj){
+        return Course.findById(courseId)
+        .then(function(obj){
             course = obj;
             return Session.findById(course.currentSession);
         }).then(function(previousSession){
@@ -95,6 +112,7 @@ Course.openSession = function(courseId,session){
             return _sessObj_.update({qr:qrImage},{transaction:tr});
         }).then(function(_sessObj_){
             sessObj = _sessObj_;
+            console.log(course);
             return course.addSession(sessObj,{transaction:tr});
         }).then(function(){
             return course.update({currentSession:sessObj.id},{transaction:tr});
@@ -103,7 +121,9 @@ Course.openSession = function(courseId,session){
         })
     });
 };
-
+/**
+    关闭课程
+*/
 Course.closeSession = function(courseId,sessionId){
     var course = null;
     return Course.findById(courseId).then(function(obj){

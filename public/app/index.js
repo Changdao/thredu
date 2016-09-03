@@ -13,10 +13,15 @@ threduIndex.config(['$routeProvider',
             }).when('/signin',{
                 templateUrl:'/partials/index/signin',
                 controller:'threduSigninCtrl'
+            }).when('/registered',{
+                templateUrl:'/partials/index/registered',
+                controller:'threduSigninCtrl'
             }).otherwise({
                 redirectTo: '/'
             });
     }]);
+
+
 threduIndex.controller('threduSessionCtrl',function($scope,$http,$routeParams){
     $http.get('/api/session/'+$routeParams.id).then(function(data){
         $scope.session=data.data;
@@ -38,8 +43,30 @@ threduIndex.controller('threduSessionCtrl',function($scope,$http,$routeParams){
     };
     
 });
-threduIndex.controller('threduSigninCtrl',function($scope){
-    console.log('signin...');
+threduIndex.controller('threduSigninCtrl',function($scope,$http,$location,$window,$route){
+    $scope.user = {agree:false};
+    $scope.signUser = {};
+    $scope.alert= function(){
+        alert('Not implemented!');
+    };
+
+    $scope.register = function(){
+        $http.post('/api/user',$scope.user).then(function(response){
+            console.log(response);
+            $scope.signUser = response.data;
+            $location.url('/registered');
+        }).catch(function(error){
+            console.log(error);
+        });
+    };
+    $scope.signin = function(){
+        $http.post('/signin',$scope.signUser).then(function(response){
+            $location.path("/#/");
+        }).catch(function(error){
+            console.log(error);
+        });
+    };
+
 });
 threduIndex.controller('threduIndexCtrl',function($scope,$http, $amap,$window){
     $scope.locating = true;

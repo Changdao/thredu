@@ -2,6 +2,12 @@
 
 var ngAHMap = angular.module('ngAHAmap',[]).service('$amap',[function(){
     this.map = function(scope,mapContainer,options){
+        //2015.9.9 James Liu Wrote:
+        //no network we should do nothing for AMap.
+        //why no AMAP? which only happens on localhost, the developer no internet connection.
+        //Don't care it too much.
+        //var AMap = AMap||undefined;
+        if (typeof AMap === "undefined")return;
         //todo refactoring the following code
         //hard to determine how to extract and design the interface.
         

@@ -3,28 +3,28 @@
                     <div class="col-sm-6 col-md-6">
                          <div class="signin">
                               <div class="social_sign">
-                                   <h3>Sign in with your social account</h3>
-                                   <a class="fb" href="#facebook"><i class="fa fa-facebook"></i></a> <a class="tw" href="#twitter"><i class="fa fa-twitter"></i></a> <a class="gp" href="#googleplus"><i class="fa fa-google-plus"></i></a> </div>
+                                   <h3>使用你的社交网络账号登录</h3>
+                                   <a class="fb" href="#wechat" title="微信登录"><i class="fa fa-wechat"></i></a>  <a class="gp" href="#weibo" title="微博登录"><i class="fa fa-weibo"></i></a> </div>
                               <div class="or">
                                    <div class="or_l"></div>
-                                   <span>or</span>
+                                   <span>或者</span>
                                    <div class="or_r"></div>
                               </div>
-                              <p class="sign_title">Log in with your site account</p>
+                              <p class="sign_title">使用你的THREDU账号登录</p>
                               <div class="row">
                                    <div class="col-lg-2"></div>
                                    <div class="form col-lg-8">
                                         <form>
-                                             <input placeholder="Email" class="form-control" type="text">
-                                             <input placeholder="Password" class="form-control" type="text">
+                                             <input placeholder="电子邮件" class="form-control" type="text" ng-model="signUser.email">
+                                             <input placeholder="密码" class="form-control" type="password" ng-model="signUser.password">
                                              <div class="forgot">
                                                   <div class="checkbox">
                                                        <label class="">
                                                             <input type="checkbox">
-                                                            Remember me </label>
+                                                            记住我 </label>
                                                   </div>
-                                                  <a href="#">Forgot password?</a> </div>
-                                             <button type="submit" class="btn btn-primary btn-lg">Sign in</button>
+                                                  <a href="#">忘记密码?</a> </div>
+                                             <button class="btn btn-primary btn-lg" ng-click="signin()">登录</button>
                                         </form>
                                    </div>
                                    <div class="col-lg-2"></div>
@@ -33,27 +33,27 @@
                     </div>
                     <div class="col-sm-6 col-md-6">
                          <div class="signup">
-                              <form>
+                              <form novalidate>
                                    <fieldset>
                                         <div class="social_sign">
-                                             <h3>Don't have a site account yet?</h3>
+                                             <h3>还没有THREDU账号?</h3>
                                              <a><i class="fa fa-user"></i></a> </div>
-                                        <p class="sign_title">Create one now, it's fast &amp; free!</p>
+                                        <p class="sign_title">免费创建账号!</p>
                                         <div class="row">
                                              <div class="col-lg-2"></div>
                                              <div class="col-lg-8">
-                                                  <input id="Username" name="Username" placeholder="Username" class="form-control" required="" type="text">
-                                                  <input id="Emailaddress" name="Email address" placeholder="Email address" class="form-control" required="" type="text">
-                                                  <input id="Password" name="Password" placeholder="Password" class="form-control" required="" type="password">
+                                                  <input id="Username" name="Username" placeholder="昵称" ng-model="user.nickname" class="form-control" required="" type="text">
+                                                  <input id="Emailaddress" name="Email address" placeholder="电子邮件" ng-model="user.email" class="form-control" required="" type="text">
+                                                  <input id="Password" name="Password" placeholder="密码" ng-model="user.password" class="form-control" required="" type="password">
                                                   <div class="checkbox">
                                                        <label class="">
-                                                            <input name="checkboxes" value="Option one" type="checkbox">
-                                                            I agree to the <a href="#">terms and conditions</a> </label>
+                                                            <input name="agree" value="agree" ng-model="user.agree" type="checkbox">
+                                                            我同意 <a style="cursor:pointer;" ng-click="alert()">用户使用条款</a> </label>
                                                   </div>
                                              </div>
                                              <div class="col-lg-2"></div>
                                         </div>
-                                        <button type="submit" class="btn btn-success btn-lg">Create your account</button>
+                                        <button type="submit" class="btn btn-success btn-lg" ng-click="register()" ng-disable="!user ||!user.agree">创建账号</button>
                                    </fieldset>
                               </form>
                          </div>

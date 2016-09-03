@@ -7,6 +7,7 @@ module.exports = app;
 
 var course = require('./course');
 var answer = require('./answer');
+var user = require('./user');
 
 app.get('/course/around',course.getAround);
 //app.get('/course/getCurrentQuestion',course.getCurrentQuestion);
@@ -32,6 +33,8 @@ app.get('/course',course.index);
 app.post('/course',course.post);
 app.get('/course/:id',course.get);
 app.delete('/course/:id',course.delete);
+
+app.post('/user',user.register);
 
 
 

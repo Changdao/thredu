@@ -8575,20 +8575,21 @@ blockquote p {
   .dmui_dropdown_block {
     background-image: none!important;
   }
-  #sign a:link,
+  /*#sign a:link,
   #sign a:visited {
-    color: #fff;
+    color: #000;
   }
   #sign a:hover,
   #sign a:active {
     color: yellow;
   }
   #sign a i {
-    color: #ffffff;
+    color: #000000;
   }
   #sign span {
-    display: none;
-  }
+    display: inline-block;
+  }*/
+
   .flexslider .container {
     height: 350px;
   }
@@ -8765,7 +8766,7 @@ blockquote p {
     margin-top: 0px;
     margin: 0 15px;
     display: block;
-    clear: both;
+    /*clear: both;*/
     width: auto;
   }
   .navbar .btn-navbar span.nb_left {
