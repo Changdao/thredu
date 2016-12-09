@@ -1,7 +1,7 @@
 var qr = require('qr-image');
 console.log(qr);
 var Sequelize = require('sequelize');
-var sequelize = new Sequelize('postgres://thredu:thredu@localhost:5432/thredu');
+var sequelize = new Sequelize('postgres://thredu:thredu@192.168.1.100:5432/thredu');
 
 
 var User = sequelize.define('user',{
